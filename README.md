@@ -2,6 +2,7 @@
 This repository stores the benchmarks that were used to measure the performance of the tSPM+ algorithm ((C++ library) [https://github.com/JonasHuegel/tspm_cpp_backend] (R package)[https://github.com/JonasHuegel/tSPMPlus_R] )for the publication.
 We performed 2 different benchmarks, one where we compared the performance with tSPM on real world data (we cannont provide access to this data to its sensitive nature), and one benchmark to measure the possible performance.
 For the second benchmark we used the [`syntheticmass 100k-covid data set`](https://synthea.mitre.org/downloads) synthetic data set [1, 2] from [SyntheaTM](https://synthetichealth.github.io/synthea/)
+Since the file is 500MB large it is not included in the repository and should be download in the `data/syntheticData/` and extracted there.
 
 
 References:
