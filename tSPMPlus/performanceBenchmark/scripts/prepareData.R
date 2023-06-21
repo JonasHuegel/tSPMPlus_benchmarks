@@ -25,7 +25,7 @@ if(!require("tictoc")) install.packages("tictoc")
 tic("Overall")
 tic("Load data")
 ## load and prep the data
-basePath = "../data/syntethicData/100k_synthea_covid19_csv/"
+basePath = "data/syntheticData/100k_synthea_covid19_csv/"
 
 med <- fread(paste0(basePath, "medications.csv"))
 med <- med %>% select(START,PATIENT,CODE,DESCRIPTION)
@@ -79,10 +79,13 @@ dbmart <- rbind(dbmart, conditions)
 
 dbmart$phenx = as.vector(dbmart$phenx)
 toc()
-tic("transform to numeric")
-db  <- tSPMPlus::transformDbMartToNumeric(dbmart)
-setDT(db)
+tic("reduce to 75k patients")
+setDT(dbmart)
+
+uniquePats <- as.data.frame(unique(dbmart$patient_num))[1:35000,]
+dbmart<-dbmart[dbmart$patient_num %in% uniquePats,]
+setDT(dbmart)
 toc()
 
-save(db,file = "../data/syntethicData/performanceBenchmark.RData")
+save(dbmart,file = "data/syntheticData/100k_synthea_covid19_csv/performanceBenchmark.RData")
 toc()

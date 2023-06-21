@@ -28,13 +28,9 @@ if(!require("tictoc")) install.packages("tictoc")
 ## load and prep the data
 tic("Overall")
 tic("loading data")
-count="first"
-pattern = "tSPM"
-phenx <- "AD"
-load("../data/syntethicData/performanceBenchmark.RData")
+load("data/syntheticData/100k_synthea_covid19_csv/performanceBenchmark.RData")
 toc()
 
-uniqpats <- c(unique(dbmart.first.sim$patient_num))
 sparsity = 0.05
 
 #setup parallel backend to use many processors
@@ -43,9 +39,11 @@ cores<-detectCores()
 ##tSPMPlus
 tic("tSPMPLus including transformation")
 tic("numeric transformation")
-dbmart_num <- tSPMPlus::transformDbMartToNumeric(dbmart.first.sim)
+dbmart_num <- tSPMPlus::transformDbMartToNumeric(dbmart)
+print(object.size(dbmart))
+rm(dbmart)
+gc()
 print(object.size(dbmart_num))
-print(object.size(dbmart.first.sim))
 toc()
 tic("tSPMPlus & sequencing")
 x <- tSPMPlus::extractNonSparseSequences(df_dbMart =  dbmart_num$dbMart,
